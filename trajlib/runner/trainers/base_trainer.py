@@ -13,7 +13,10 @@ class BaseTrainer:
         self.training_config = training_config
 
     def train(self):
-        return
+        raise NotImplementedError()
 
     def validate(self):
-        return
+        raise NotImplementedError()
+
+    def test(self):
+        raise NotImplementedError()
