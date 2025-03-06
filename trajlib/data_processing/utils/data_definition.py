@@ -2,7 +2,7 @@ import pandas as pd
 import geopandas as gpd
 import os
 
-
+import pickle
 import geopandas as gpd
 import os
 
@@ -24,6 +24,24 @@ class TrajectoryData:
             point_file_path
         )  # 使用gpd.read_file，假设是支持的地理数据文件格式
         self.traj_table = gpd.read_file(traj_file_path)
+
+    def save_to_pkl(self, save_path) -> None:
+        """
+        将当前对象保存到一个.pkl文件中
+        :param save_path: 输出文件路径
+        """
+        with open(save_path, "wb") as f:
+            pickle.dump(self, f)
+
+    @staticmethod
+    def load_from_pkl(load_path) -> None:
+        """
+        从.pkl文件中加载对象
+        :param load_path: 输入文件路径
+        """
+        with open(load_path, "rb") as f:
+            loaded_obj = pickle.load(f)
+        return loaded_obj
 
     def write_to_file(self, save_path) -> None:
         """
