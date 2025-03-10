@@ -16,6 +16,10 @@ def get_point_projection_on_line(point, line):
     point_vector = point - line[0]
     dot_product = np.dot(point_vector, line_vector)
     line_length_squared = np.dot(line_vector, line_vector)
+    # 检查 line_length_squared 是否为 0
+    if line_length_squared == 0:
+        # 如果为 0，说明两点重合，投影就是这个重合点
+        return line[0]
     projection = line[0] + (dot_product / line_length_squared) * line_vector
     return projection
 
@@ -181,6 +185,10 @@ def traclus_partition(
         trajectory = np.array(trajectory)
     if trajectory.shape[1] != 2:
         raise ValueError("Trajectory must be a numpy array of shape (n, 2)")
+    
+    traj_len = trajectory.shape[0]
+    if traj_len == 0:
+        return np.array([]), np.zeros(0, dtype=bool)
 
     # Initialize the characteristic points, add the first point as a characteristic point
     cp_indices = []
